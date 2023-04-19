@@ -11,6 +11,18 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// ShowAccount godoc
+// @Summary      membuat SocialMedia
+// @Description  POST SocialMedia berdasarkan user id dan untuk mendapatkan user id ada di response dari login
+// @Tags         CREATE SOCIAL MEDIA
+// @Accept       json
+// @Produce      json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Bearer {token}"
+// @Success      200  {object}  models.SocialMedia
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /socialmedia/ [post]
 func CreateSocialMedia(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -38,6 +50,16 @@ func CreateSocialMedia(c *gin.Context) {
 		SocialMedia)
 }
 
+// ShowAccount godoc
+// @Summary      mendapatkan semua SocialMedia
+// @Description  GETALL semua  SocialMedia
+// @Tags         GETALL SOCIAL MEDIA
+// @Accept       json
+// @Produce      json
+// @Success      200  {array}  []models.SocialMedia
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /socialmedia/ [get]
 func GetAllSocial(c *gin.Context) {
 	db := database.GetDB()
 	var social []models.SocialMedia
@@ -53,6 +75,17 @@ func GetAllSocial(c *gin.Context) {
 
 }
 
+// ShowAccount godoc
+// @Summary      mendapatkan SocialMedia bersarkan id ya
+// @Description  GET SocialMedia berdasarkan id
+// @Tags         GET SOCIAL MEDIA by ID
+// @Accept       json
+// @Produce      json
+// @Param 		id header string true "id {id}"
+// @Success      200  {object}  models.SocialMedia
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /socialmedia/{id} [get]
 func GetSocialById(c *gin.Context) {
 	db := database.GetDB()
 	SocialId := c.Param("id")
@@ -67,6 +100,19 @@ func GetSocialById(c *gin.Context) {
 	c.JSON(http.StatusOK, social)
 }
 
+// ShowAccount godoc
+// @Summary      mengupdate social media SocialMedia berdasarkan id nya
+// @Description  PUT SocialMedia berdasarkan id dan user id untuk mendapatkan user id ada di response dari login
+// @Tags         UPDATE SOCIAL MEDIA
+// @Accept       json
+// @Produce      json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Bearer {token}"
+// @Param 		id header string true "id {id}"
+// @Success      200  {object}  models.SocialMedia
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /socialmedia/{id} [put]
 func UpdateSocialMedia(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -100,6 +146,19 @@ func UpdateSocialMedia(c *gin.Context) {
 
 }
 
+// ShowAccount godoc
+// @Summary      mendelete SocialMedia berdasarkan id
+// @Description  DELETE SocialMedia berdasarkan id dan user id  untuk mendapatkan user id ada di response dari login
+// @Tags         DELETE SOCIAL MEDIA
+// @Accept       json
+// @Produce      json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Bearer {token}"
+// @Param 	id path string true "id {token}"
+// @Success      200  {object}  models.SocialMedia
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /socialmedia/{id} [delete]
 func DeleteSocial(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)

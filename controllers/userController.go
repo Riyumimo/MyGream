@@ -14,6 +14,21 @@ var (
 	appJson = "application/json"
 )
 
+// ini adalah example token
+type Token struct {
+	Token string `json:"token" example:"U3dhZ2dlciByb2Nrc......."`
+}
+
+// ShowAccount godoc
+// @Summary      Membuat Account
+// @Description  POST account
+// @Tags         CREATE ACCOUNT
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  models.User
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /register/ [post]
 func UserRegister(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)
@@ -45,6 +60,16 @@ func UserRegister(c *gin.Context) {
 
 }
 
+// ShowAccount godoc
+// @Summary      Login Account
+// @Description  POST login account
+// @Tags         LOGIN ACCOUNT
+// @Accept       json
+// @Produce      json
+// @Success      200  {object}  Token
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /login/ [post]
 func UserLogin(c *gin.Context) {
 	db := database.GetDB()
 	contentType := helpers.GetContentType(c)

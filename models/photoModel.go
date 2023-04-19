@@ -7,11 +7,10 @@ import (
 
 type Photo struct {
 	GormModel
-	Title     string `gorm:"not null" json:"title" form:"title" valid:"required-Your Title is required"`
-	Caption   string `gorm:"not null" json:"caption" form:"caption" valid:"required-Your caption is required"`
-	Photo_Url string `gorm:"not null" json:"photo_url" form:"photo_url" valid:"required-Your photo_url is required"`
+	Title     string `gorm:"not null" json:"title" form:"title" valid:"required-Your Title is required" example:"ExamplePhoto"`
+	Caption   string `gorm:"not null" json:"caption" form:"caption" valid:"required-Your caption is required" example:"this is example"`
+	Photo_Url string `gorm:"not null" json:"photo_url" form:"photo_url" valid:"required-Your photo_url is required" example:"example.png"`
 	UserId    uint
-	User      *User
 	Comment   []Comment `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"comments"`
 	// Product  []Product `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"products"`
 }

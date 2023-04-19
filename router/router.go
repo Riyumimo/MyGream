@@ -5,12 +5,15 @@ import (
 	"MyGream/middlewares"
 
 	"github.com/gin-gonic/gin"
+	swaggerFiles "github.com/swaggo/files"
+	ginSwagger "github.com/swaggo/gin-swagger"
 )
 
 func StartApp() *gin.Engine {
 
 	r := gin.Default()
-
+	//add swagger
+	r.GET("/docs/*any", ginSwagger.WrapHandler(swaggerFiles.Handler))
 	userRouter := r.Group("/users")
 	{
 		userRouter.POST("/register", controllers.UserRegister)

@@ -1,0 +1,671 @@
+definitions:
+  controllers.ErrorResponse:
+    properties:
+      error:
+        type: string
+      message:
+        type: string
+    type: object
+  controllers.Token:
+    properties:
+      token:
+        example: U3dhZ2dlciByb2Nrc.......
+        type: string
+    type: object
+  models.Comment:
+    properties:
+      create_at:
+        example: 12 Feb 2023
+        type: string
+      id:
+        example: 1
+        type: integer
+      message:
+        example: this is example
+        type: string
+      photoId:
+        type: integer
+      update_at:
+        example: 12 Feb 2023
+        type: string
+      userId:
+        type: integer
+    type: object
+  models.Photo:
+    properties:
+      caption:
+        example: this is example
+        type: string
+      comments:
+        items:
+          $ref: '#/definitions/models.Comment'
+        type: array
+      create_at:
+        example: 12 Feb 2023
+        type: string
+      id:
+        example: 1
+        type: integer
+      photo_url:
+        example: example.png
+        type: string
+      title:
+        example: ExamplePhoto
+        type: string
+      update_at:
+        example: 12 Feb 2023
+        type: string
+      userId:
+        type: integer
+    type: object
+  models.SocialMedia:
+    properties:
+      create_at:
+        example: 12 Feb 2023
+        type: string
+      id:
+        example: 1
+        type: integer
+      name:
+        example: Example5432
+        type: string
+      social_media_url:
+        example: www.example.com
+        type: string
+      update_at:
+        example: 12 Feb 2023
+        type: string
+      userId:
+        type: integer
+    type: object
+  models.User:
+    properties:
+      age:
+        example: "12"
+        type: string
+      comments:
+        items:
+          $ref: '#/definitions/models.Comment'
+        type: array
+      create_at:
+        example: 12 Feb 2023
+        type: string
+      email:
+        example: example@gmail.com
+        type: string
+      full_name:
+        example: ExampleJunior
+        type: string
+      id:
+        example: 1
+        type: integer
+      password:
+        example: "1234567"
+        type: string
+      photos:
+        items:
+          $ref: '#/definitions/models.Photo'
+        type: array
+      socialmedias:
+        items:
+          $ref: '#/definitions/models.SocialMedia'
+        type: array
+      update_at:
+        example: 12 Feb 2023
+        type: string
+    type: object
+externalDocs:
+  description: OpenAPI
+  url: https://swagger.io/resources/open-api/
+info:
+  contact:
+    email: support@swagger.io
+    name: API Support
+    url: http://www.swagger.io/support
+  description: Ini Adalah Tugas final project dari DTS kominfo "Project MyGram".
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+  termsOfService: http://swagger.io/terms/
+  title: MyGram Final Project
+  version: "1.0"
+paths:
+  /comment/:
+    get:
+      consumes:
+      - application/json
+      description: Get semua data comment
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              $ref: '#/definitions/models.Comment'
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get all data comment
+      tags:
+      - GET ALL COMMENT
+  /comment/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: Delete comment by  id dan untuk mendapatkan user id menggunkan
+        token bearer yang di dapat dari login
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Id
+        in: path
+        name: Id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Delete Comment yang telah di buat
+      tags:
+      - DELETE COMMENT
+    get:
+      consumes:
+      - application/json
+      description: GET comment by  id
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Id
+        in: path
+        name: Id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Get comment by id
+      tags:
+      - GET COMMENT by id
+    put:
+      consumes:
+      - application/json
+      description: PUT comment by photo id dan untuk mendapatkan user id menggunkan
+        token bearer yang di dapat dari login
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Id
+        in: path
+        name: Id
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Mengupdata data comment yang telah ada
+      tags:
+      - PUT COMMENT
+  /comment/photo_id{id}:
+    post:
+      consumes:
+      - application/json
+      description: POST comment by photo id dan untuk mendapatkan user id menggunkan
+        token bearer yang di dapat dari login
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: Photo Id
+        in: path
+        name: PhotoId
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Comment'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Membuat comment
+      tags:
+      - CREATE COMMENT
+  /login/:
+    post:
+      consumes:
+      - application/json
+      description: POST login account
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/controllers.Token'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: Login Account
+      tags:
+      - LOGIN ACCOUNT
+  /photos/:
+    get:
+      consumes:
+      - application/json
+      description: GETALL photo
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/models.Photo'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: mendapatkan semua Photo
+      tags:
+      - GEL ALL PHOTO
+    post:
+      consumes:
+      - application/json
+      description: POST photo untuk mendapatkan user id ada di response dari login
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Photo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: Membuat Photo
+      tags:
+      - CREATE Photo
+    put:
+      consumes:
+      - application/json
+      description: PUT photo untuk mendapatkan user id ada di response dari login
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Photo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: mengupdate Photo
+      tags:
+      - UPDATE PHOTO
+  /photos/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: DELETE photo berdasarkan id dan untuk mendapatkan user id ada di
+        response dari login
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: id {id}
+        in: header
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Photo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: mendelete Photo berdsarkan id nya
+      tags:
+      - DELETE PHOTO by ID
+    get:
+      consumes:
+      - application/json
+      description: GET photo menggunakan id sebagai param
+      parameters:
+      - description: id {id}
+        in: header
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.Photo'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: mendapatkan Photo bersarkan dari id nya
+      tags:
+      - GET PHOTO by ID
+  /register/:
+    post:
+      consumes:
+      - application/json
+      description: POST account
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.User'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: Membuat Account
+      tags:
+      - CREATE ACCOUNT
+  /socialmedia/:
+    get:
+      consumes:
+      - application/json
+      description: GETALL semua  SocialMedia
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            items:
+              items:
+                $ref: '#/definitions/models.SocialMedia'
+              type: array
+            type: array
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: mendapatkan semua SocialMedia
+      tags:
+      - GETALL SOCIAL MEDIA
+    post:
+      consumes:
+      - application/json
+      description: POST SocialMedia berdasarkan user id dan untuk mendapatkan user
+        id ada di response dari login
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: membuat SocialMedia
+      tags:
+      - CREATE SOCIAL MEDIA
+  /socialmedia/{id}:
+    delete:
+      consumes:
+      - application/json
+      description: DELETE SocialMedia berdasarkan id dan user id  untuk mendapatkan
+        user id ada di response dari login
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: id {token}
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: mendelete SocialMedia berdasarkan id
+      tags:
+      - DELETE SOCIAL MEDIA
+    get:
+      consumes:
+      - application/json
+      description: GET SocialMedia berdasarkan id
+      parameters:
+      - description: id {id}
+        in: header
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      summary: mendapatkan SocialMedia bersarkan id ya
+      tags:
+      - GET SOCIAL MEDIA by ID
+    put:
+      consumes:
+      - application/json
+      description: PUT SocialMedia berdasarkan id dan user id untuk mendapatkan user
+        id ada di response dari login
+      parameters:
+      - description: Bearer {token}
+        in: header
+        name: Authorization
+        required: true
+        type: string
+      - description: id {id}
+        in: header
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            $ref: '#/definitions/models.SocialMedia'
+        "400":
+          description: Bad Request
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+        "500":
+          description: Internal Server Error
+          schema:
+            $ref: '#/definitions/controllers.ErrorResponse'
+      security:
+      - ApiKeyAuth: []
+      summary: mengupdate social media SocialMedia berdasarkan id nya
+      tags:
+      - UPDATE SOCIAL MEDIA
+securityDefinitions:
+  BasicAuth:
+    type: basic
+swagger: "2.0"

@@ -11,7 +11,7 @@ type Comment struct {
 	GormModel
 	UserId  uint
 	PhotoId uint
-	Message string `gorm:"not null" json:"message" form:"message" valid:"required-Your message is required"`
+	Message string `gorm:"not null" json:"message" form:"message" valid:"required-Your message is required" example:"this is example"`
 }
 
 func (p *Comment) BeforeCreate(tx *gorm.DB) (err error) {

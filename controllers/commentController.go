@@ -11,6 +11,25 @@ import (
 	"github.com/gin-gonic/gin"
 )
 
+// ErrorResponse response struct
+type ErrorResponse struct {
+	Error   string `json:"error"`
+	Message string `json:"message"`
+}
+
+// ShowAccount godoc
+// @Summary      Membuat comment
+// @Description  POST comment by photo id dan untuk mendapatkan user id menggunkan token bearer yang di dapat dari login
+// @Tags         CREATE COMMENT
+// @Accept       json
+// @Produce      json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Bearer {token}"
+// @Param        PhotoId   path      int  true  "Photo Id"
+// @Success      200  {object}  models.Comment
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /comment/photo_id{id} [post]
 func CreateComment(c *gin.Context) {
 
 	db := database.GetDB()
@@ -41,6 +60,19 @@ func CreateComment(c *gin.Context) {
 	c.JSON(http.StatusCreated,
 		comment)
 }
+
+// ShowAccount godoc
+// @Summary      Get all data comment
+// @Description  Get semua data comment
+// @Tags         GET ALL COMMENT
+// @Accept       json
+// @Produce      json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Bearer {token}"
+// @Success      200  {object}  []models.Comment
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /comment/ [get]
 func GetAllComment(c *gin.Context) {
 	db := database.GetDB()
 	var comments []models.Comment
@@ -53,6 +85,20 @@ func GetAllComment(c *gin.Context) {
 	}
 	c.JSON(http.StatusOK, comments)
 }
+
+// ShowAccount godoc
+// @Summary      Get comment by id
+// @Description  GET comment by  id
+// @Tags         GET COMMENT by id
+// @Accept       json
+// @Produce      json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Bearer {token}"
+// @Param        Id   path      int  true  "Id"
+// @Success      200  {object}  models.Comment
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /comment/{id} [get]
 func GetCommentByID(c *gin.Context) {
 	db := database.GetDB()
 
@@ -75,6 +121,20 @@ func GetCommentByID(c *gin.Context) {
 		"PhotoId":     comments.PhotoId,
 	})
 }
+
+// ShowAccount godoc
+// @Summary      Mengupdata data comment yang telah ada
+// @Description  PUT comment by photo id dan untuk mendapatkan user id menggunkan token bearer yang di dapat dari login
+// @Tags         PUT COMMENT
+// @Accept       json
+// @Produce      json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Bearer {token}"
+// @Param        Id   path      int  true  "Id"
+// @Success      200  {object}  models.Comment
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /comment/{id} [put]
 func UpdateComment(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -105,6 +165,19 @@ func UpdateComment(c *gin.Context) {
 	c.JSON(http.StatusOK, Comment)
 }
 
+// ShowAccount godoc
+// @Summary      Delete Comment yang telah di buat
+// @Description  Delete comment by  id dan untuk mendapatkan user id menggunkan token bearer yang di dapat dari login
+// @Tags         DELETE COMMENT
+// @Accept       json
+// @Produce      json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Bearer {token}"
+// @Param        Id   path      int  true  "Id"
+// @Success      200  {object}  models.Comment
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /comment/{id} [delete]
 func DeleteComment(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)

@@ -6,12 +6,23 @@ import (
 	"MyGream/models"
 	"net/http"
 	"strconv"
-	"time"
 
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gin-gonic/gin"
 )
 
+// ShowAccount godoc
+// @Summary      Membuat Photo
+// @Description  POST photo untuk mendapatkan user id ada di response dari login
+// @Tags         CREATE Photo
+// @Accept       json
+// @Produce      json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Bearer {token}"
+// @Success      200  {object}  models.Photo
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /photos/ [post]
 func CreatePhoto(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -36,17 +47,22 @@ func CreatePhoto(c *gin.Context) {
 		})
 		return
 	}
-	c.JSON(http.StatusCreated, gin.H{
-		"id":        Photo.ID,
-		"title":     Photo.Photo_Url,
-		"caption":   Photo.Caption,
-		"UserId":    userID,
-		"create_at": time.Now().Format(time.UnixDate),
-		"update_at": time.Now().Format(time.UnixDate),
-	})
+	c.JSON(http.StatusCreated, Photo)
 
 }
 
+// ShowAccount godoc
+// @Summary      mengupdate Photo
+// @Description  PUT photo untuk mendapatkan user id ada di response dari login
+// @Tags         UPDATE PHOTO
+// @Accept       json
+// @Produce      json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Bearer {token}"
+// @Success      200  {object}  models.Photo
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /photos/ [put]
 func UpdatePhoto(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)
@@ -80,6 +96,16 @@ func UpdatePhoto(c *gin.Context) {
 	c.JSON(http.StatusOK, Photo)
 }
 
+// ShowAccount godoc
+// @Summary      mendapatkan semua Photo
+// @Description  GETALL photo
+// @Tags         GEL ALL PHOTO
+// @Accept       json
+// @Produce      json
+// @Success      200  {array}  []models.Photo
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /photos/ [get]
 func GetAllPhotos(c *gin.Context) {
 	db := database.GetDB()
 	var photos []models.Photo
@@ -113,6 +139,17 @@ func GetAllPhotos(c *gin.Context) {
 
 }
 
+// ShowAccount godoc
+// @Summary      mendapatkan Photo bersarkan dari id nya
+// @Description  GET photo menggunakan id sebagai param
+// @Tags         GET PHOTO by ID
+// @Accept       json
+// @Produce      json
+// @Param  		id header string true "id {id}"
+// @Success      200  {object}  models.Photo
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /photos/{id} [get]
 func GetPhotoByID(c *gin.Context) {
 	db := database.GetDB()
 
@@ -139,6 +176,19 @@ func GetPhotoByID(c *gin.Context) {
 	})
 }
 
+// ShowAccount godoc
+// @Summary      mendelete Photo berdsarkan id nya
+// @Description  DELETE photo berdasarkan id dan untuk mendapatkan user id ada di response dari login
+// @Tags         DELETE PHOTO by ID
+// @Accept       json
+// @Produce      json
+// @Security ApiKeyAuth
+// @Param Authorization header string true "Bearer {token}"
+// @Param id header string true "id {id}"
+// @Success      200  {object}  models.Photo
+// @Failure      400   {object} ErrorResponse
+// @Failure 	 500 {object} ErrorResponse
+// @Router       /photos/{id} [delete]
 func DeletePhoto(c *gin.Context) {
 	db := database.GetDB()
 	userData := c.MustGet("userData").(jwt.MapClaims)

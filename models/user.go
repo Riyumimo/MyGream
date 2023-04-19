@@ -11,10 +11,10 @@ import (
 
 type User struct {
 	GormModel
-	UserName    string        `gorm:"not null;uniqueIndex" json:"full_name" form:"full_name" valid:"required-Your full name is required"`
-	Email       string        `gorm:"not null;uniqueIndex" json:"email" form:"email" valid:"required-Your email is required,email-Invalid email format"`
-	Password    string        `gorm:"not null" json:"password" form:"password" valid:"required-Your password is required,min=6,Password has to have minimum length of 6 characters"`
-	Age         string        `gorm:"not null" json:"age" form:"age" valid:"required-Your age is required,min=9,Password has to have minimum length of 6 characters"`
+	UserName    string        `gorm:"not null;uniqueIndex" json:"full_name" form:"full_name" valid:"required-Your full name is required" example:"ExampleJunior"`
+	Email       string        `gorm:"not null;uniqueIndex" json:"email" form:"email" valid:"required-Your email is required,email-Invalid email format" example:"example@gmail.com"`
+	Password    string        `gorm:"not null" json:"password" form:"password" valid:"required-Your password is required,min=6,Password has to have minimum length of 6 characters" example:"1234567"`
+	Age         string        `gorm:"not null" json:"age" form:"age" valid:"required-Your age is required,min=9,Password has to have minimum length of 8 year" example:"12"`
 	Photo       []Photo       `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"photos"`
 	Comment     []Comment     `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"comments"`
 	SocialMedia []SocialMedia `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"socialmedias"`

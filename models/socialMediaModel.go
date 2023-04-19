@@ -9,8 +9,8 @@ import (
 
 type SocialMedia struct {
 	GormModel
-	Name           string `gorm:"not null" json:"name" form:"name" valid:"required-Your Name is required"`
-	SocialMediaUrl string `gorm:"not null" json:"social_media_url" form:"social_media_url" valid:"required-Your social_media_url is required"`
+	Name           string `gorm:"not null" json:"name" form:"name" valid:"required-Your Name is required" example:"Example5432"`
+	SocialMediaUrl string `gorm:"not null" json:"social_media_url" form:"social_media_url" valid:"required-Your social_media_url is required" example:"www.example.com"`
 	UserId         uint
 	// Product  []Product `gorm:"constraint:OnUpdate:CASCADE,OnDelete:SET NULL;" json:"products"`
 }
